@@ -1,0 +1,5 @@
+existing value in demo.txt has been overwritten 
+or truncated
+new data has been appended to the existing data
+new data has been appended to the existing data
+new data has been appended to the existing data
