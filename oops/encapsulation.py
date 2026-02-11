@@ -16,21 +16,24 @@ class student:
         self._marks = marks    # protected
         self.__id = 123        # private
 
+# Protected attribute (_marks): The attribute is prefixed with a single underscore, which is a convention in Python indicating that this is meant to be protected (not directly
+#                                 accessed by outside code). Although it is still technically accessible, it is discouraged to access this directly from outside the class.
 
+# Private attribute (__id): The double underscore before the __id attribute is a Python convention that mangles the attribute's name to make it harder to access directly 
+#                             from outside the class (name mangling). This makes it "private"—not accessible using the normal attribute syntax from outside the class.
 
 s = student("Abhishek", 95)
 
 print(s.name)      # public → accessible
 print(s._marks)    # protected → accessible but conventionally “don’t use outside class”
 # print(s.__id)    # private → will raise AttributeError
-# Access private variable using name mangling
-# print(s._student__id)  # 123  will be printed although vs code is showing error but still runs
+print(s._student__id)  # private -> can be accesed using name mangling
+
+Even though we can technically access the private attribute using name mangling, this is generally discouraged because it breaks the encapsulation. The idea is to 
+restrict direct access and enforce controlled access via methods.
 
 
-
-
-
-# getter setter are used for validating the data 
+# getter setter are used for validating the data and it  allows you to control access to the internal data.
 class Student:
     def __init__(self, name, marks):
         self._name = name
@@ -49,15 +52,16 @@ class Student:
         else:
             raise ValueError("Name must be a string")
 
-    # Getter for marks
+    # The getter (@property) allows you to access the value of the private attribute (_name or _marks) like a normal attribute, but the actual value is fetched through a method.
     @property
     def marks(self):
         return self._marks
 
-    # Setter for marks
+    # The setter ensures that only valid values are assigned to the internal attributes. For example, the marks attribute can only be set to values between 0 and 100, and name must be a string.
+    # If invalid data is provided, the setter raises an exception (ValueError).
     @marks.setter
     def marks(self, value):
-        if 0 <= value <= 100:
+        if 0 <= value <= 100:  # validating the data
             self._marks = value
         else:
             raise ValueError("Marks must be between 0 and 100")
@@ -72,7 +76,8 @@ print(s.marks)  # 95
 s.name = "Raj"  # works
 s.marks = 105   # ValueError: Marks must be between 0 and 100
 
-# getter setters are used to hide internal representation
+ # By using these methods, we hide the internal representation (e.g., _name and _marks) from the outside world and expose them in a controlled way. This is a key part of
+# encapsulation: protecting the internal state of an object and exposing only the necessary functionality.
 
 #they are also used to make an attribute read-only
 class Employee:
@@ -80,14 +85,14 @@ class Employee:
         self._name = name   # private storage
 
     @property
-    def name(self):         # getter only
+    def name(self):         # getter only , By defining only a getter for the name attribute and not providing a setter, we are ensureing that the name cannot be changed once it has been set. This is a form of encapsulation because it prevents external code from modifying the internal state of an object in an uncontrolled way.
         return self._name
 
 e = Employee("Abhi")
 print(e.name)  # "Abhi"
 # e.name = "Raj"  # AttributeError: can't set attribute
 
-# pythonic way is by using @property
+# pythonic way is by using @property, the normal method
 class BankAccount:
     def __init__(self, balance):
         self.__balance = balance
