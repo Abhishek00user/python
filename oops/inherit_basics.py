@@ -81,11 +81,6 @@ c = Child()
 c.skills()  # In multiple inheritance, Python uses MRO (Method Resolution Order) and takes first parent (Mother) , so here cooking will be done
 
 
-
-# DIAMOND PROBLEM - The Diamond Problem is a well-known issue in object-oriented programming (OOP) that arises in languages that support multiple inheritance. It refers to
-# the complexity that can occur when a class inherits from two classes that both inherit from the same base class. This creates a "diamond-shaped" inheritance structure and
-# raises ambiguity about which parent class method should be called.
-
 # code for understanding the MRO order
 class A:
     def show(self):
@@ -133,7 +128,10 @@ d.show()  # ouput is D B C A
 # → B before C in D(B, C)
 # These rules force a single, conflict-free path.
 
-### The Diamond Problem Explained
+### The Diamond Problem Explained 
+DIAMOND PROBLEM - The Diamond Problem is a well-known issue in object-oriented programming (OOP) that arises in languages that support multiple inheritance. It refers to
+the complexity that can occur when a class inherits from two classes that both inherit from the same base class. This creates a "diamond-shaped" inheritance structure and
+This creates ambiguity about which parent’s method should be executed, and may result in the base class method being called multiple times..
 Here’s an illustration of the diamond problem with an example:
 
 ```
@@ -155,37 +153,56 @@ Now, let’s consider a method `m()` in `A` that is inherited by both `B` and `C
 
 This leads to ambiguity, and this situation is called the **Diamond Problem**.
 
-### Example of Diamond Problem
-
-```python
+code showing the problem 
 class A:
-    def method(self):
-        print("Method in A")
+    def show(self):
+        print("A")
 
 class B(A):
-    def method(self):
-        print("Method in B")
+    def show(self):
+        print("B")
+        A.show(self)   # Direct call
 
 class C(A):
-    def method(self):
-        print("Method in C")
+    def show(self):
+        print("C")
+        A.show(self)   # Direct call
 
-class D(B, C):  # D inherits from both B and C
-    pass
+class D(B, C):
+    def show(self):
+        print("D")
+        B.show(self)
+        C.show(self)
 
 d = D()
-d.method()  # Which method will be called?
-```
+d.show() # output - D B A C A
+Since both B and C call A directly, and D calls both B and C, the method in A is executed twice, creating ambiguity and redundancy.
 
-#### Output:
+# Explain the Solution (Using super + MRO)
+class A:
+    def show(self):
+        print("A")
 
-If you run the code, it will print:
+class B(A):
+    def show(self):
+        print("B")
+        super().show()
 
-```
-Method in B
-```
+class C(A):
+    def show(self):
+        print("C")
+        super().show()
 
-This is because Python uses a method resolution order (MRO) to determine the method that should be called.
+class D(B, C):
+    def show(self):
+        print("D")
+        super().show()
+
+d = D()
+d.show() # D B C A
+Python solves the diamond problem using C3 Linearization (MRO - Method Resolution Order).
+When we use super(), Python ensures that each class method is executed only once and follows a specific order:D → B → C → A
+
 
 ### How Python Resolves the Diamond Problem
 
