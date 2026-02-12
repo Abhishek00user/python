@@ -42,7 +42,7 @@ class Child(Parent):
         print("Child constructor")
 
 c = Child()  # parent called first and then child
-# If super not used then if the parent class needs to perform some essential setup (like initializing instance variables) that the child class relies on
+# if the parent class needs to perform some essential setup (like initializing instance variables) that the child class object would relies on , then it is important to use super 
 
 class Person:
     def __init__(self, name, age):
@@ -85,6 +85,8 @@ c.skills()  # In multiple inheritance, Python uses MRO (Method Resolution Order)
 # DIAMOND PROBLEM - The Diamond Problem is a well-known issue in object-oriented programming (OOP) that arises in languages that support multiple inheritance. It refers to
 # the complexity that can occur when a class inherits from two classes that both inherit from the same base class. This creates a "diamond-shaped" inheritance structure and
 # raises ambiguity about which parent class method should be called.
+
+# code for understanding the MRO order
 class A:
     def show(self):
         print("A")
@@ -104,14 +106,13 @@ class D(B, C):
         print("D")
         super().show()
 
+# MRO of this -> D → B → C → A → object . Because all classes use super(), Python follows the MRO . so each method runs only once
 d = D()
-d.show()
-
-print(D.mro())
+d.show()  # ouput is D B C A
 
 # FLOW
 # D.show() → prints D
-# super() → goes to next in MRO → B(first parent of D)
+# super() → goes to next in MRO → B
 
 # B.show() → prints B
 # super() → goes to next in MRO → C
@@ -132,12 +133,7 @@ print(D.mro())
 # → B before C in D(B, C)
 # These rules force a single, conflict-free path.
 
-
-
-The **Diamond Problem** is a well-known issue in object-oriented programming (OOP) that arises in languages that support **multiple inheritance**. It refers to the complexity that can occur when a class inherits from two classes that both inherit from the same base class. This creates a "diamond-shaped" inheritance structure and raises ambiguity about which parent class method should be called.
-
 ### The Diamond Problem Explained
-
 Here’s an illustration of the diamond problem with an example:
 
 ```
@@ -193,7 +189,8 @@ This is because Python uses a method resolution order (MRO) to determine the met
 
 ### How Python Resolves the Diamond Problem
 
-In Python, the **Diamond Problem** is resolved using the **Method Resolution Order (MRO)**. The MRO is a linear order in which classes are searched when a method is called on an object. Python uses a specific algorithm called the **C3 Linearization** to establish the MRO.
+In Python, the **Diamond Problem** is resolved using the **Method Resolution Order (MRO)**. The MRO is a linear order in which classes are searched when a method 
+is called on an object. Python uses a specific algorithm called the **C3 Linearization** to establish the MRO.
 
 #### C3 Linearization:
 
