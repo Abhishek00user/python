@@ -47,7 +47,7 @@ class D(B, C):
         super().show()
 
 d = D()
-d.show()  #super() follows the MRO: D → B → C → A
+d.show()  #super() follows the MRO of the original object which is d: D → B → C → A
 
 
 # Call: d.show()

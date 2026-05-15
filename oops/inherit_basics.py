@@ -129,31 +129,31 @@ d.show()  # ouput is D B C A
 # These rules force a single, conflict-free path.
 
 ### The Diamond Problem Explained 
-DIAMOND PROBLEM - The Diamond Problem is a well-known issue in object-oriented programming (OOP) that arises in languages that support multiple inheritance. It refers to
-the complexity that can occur when a class inherits from two classes that both inherit from the same base class. This creates a "diamond-shaped" inheritance structure and
-This creates ambiguity about which parent’s method should be executed, and may result in the base class method being called multiple times..
-Here’s an illustration of the diamond problem with an example:
+# DIAMOND PROBLEM - The Diamond Problem is a well-known issue in object-oriented programming (OOP) that arises in languages that support multiple inheritance. It refers to
+# the complexity that can occur when a class inherits from two classes that both inherit from the same base class. This creates a "diamond-shaped" inheritance structure and
+# This creates ambiguity about which parent’s method should be executed, and may result in the base class method being called multiple times..
+# Here’s an illustration of the diamond problem with an example:
 
-```
-        A
-       / \
-      B   C
-       \ /
-        D
-```
+# ```
+#         A
+#        / \
+#       B   C
+#        \ /
+#         D
+# ```
 
-* **Class A** is the top-level class.
-* **Class B** and **Class C** both inherit from **Class A**.
-* **Class D** inherits from both **Class B** and **Class C**.
+# * **Class A** is the top-level class.
+# * **Class B** and **Class C** both inherit from **Class A**.
+# * **Class D** inherits from both **Class B** and **Class C**.
 
-Now, let’s consider a method `m()` in `A` that is inherited by both `B` and `C`. When an instance of `D` calls `m()`, there is a question about which method should be executed:
+# Now, let’s consider a method `m()` in `A` that is inherited by both `B` and `C`. When an instance of `D` calls `m()`, there is a question about which method should be executed:
 
-* Should it use the method from `A` (which is inherited by both `B` and `C`)?
-* Or should it use the method from `B` or `C`?
+# * Should it use the method from `A` (which is inherited by both `B` and `C`)?
+# * Or should it use the method from `B` or `C`?
 
-This leads to ambiguity, and this situation is called the **Diamond Problem**.
+# This leads to ambiguity, and this situation is called the **Diamond Problem**.
 
-code showing the problem 
+# code showing the problem 
 class A:
     def show(self):
         print("A")
@@ -176,7 +176,7 @@ class D(B, C):
 
 d = D()
 d.show() # output - D B A C A
-Since both B and C call A directly, and D calls both B and C, the method in A is executed twice, creating ambiguity and redundancy.
+# Since both B and C call A directly, and D calls both B and C, the method in A is executed twice, creating ambiguity and redundancy.
 
 # Explain the Solution (Using super + MRO)
 class A:
@@ -200,28 +200,28 @@ class D(B, C):
 
 d = D()
 d.show() # D B C A
-Python solves the diamond problem using C3 Linearization (MRO - Method Resolution Order).
-When we use super(), Python ensures that each class method is executed only once and follows a specific order:D → B → C → A
+# Python solves the diamond problem using C3 Linearization (MRO - Method Resolution Order).
+# When we use super(), Python ensures that each class method is executed only once and follows a specific order:D → B → C → A
 
 
-### How Python Resolves the Diamond Problem
+# ### How Python Resolves the Diamond Problem
 
-In Python, the **Diamond Problem** is resolved using the **Method Resolution Order (MRO)**. The MRO is a linear order in which classes are searched when a method 
-is called on an object. Python uses a specific algorithm called the **C3 Linearization** to establish the MRO.
+# In Python, the **Diamond Problem** is resolved using the **Method Resolution Order (MRO)**. The MRO is a linear order in which classes are searched when a method 
+# is called on an object. Python uses a specific algorithm called the **C3 Linearization** to establish the MRO.
 
-#### C3 Linearization:
+# #### C3 Linearization:
 
-C3 Linearization is an algorithm used by Python to resolve the method resolution order in the case of multiple inheritance. It ensures that:
+# C3 Linearization is an algorithm used by Python to resolve the method resolution order in the case of multiple inheritance. It ensures that:
 
-1. A class appears before its parents.
-2. The inheritance order is respected.
-3. It avoids ambiguity by giving precedence to the classes in the leftmost (first) inheritance path.
+# 1. A class appears before its parents.
+# 2. The inheritance order is respected.
+# 3. It avoids ambiguity by giving precedence to the classes in the leftmost (first) inheritance path.
 
-In Python, you can view the MRO of a class by using the `mro()` method or the `__mro__` attribute.
+# In Python, you can view the MRO of a class by using the `mro()` method or the `__mro__` attribute.
 
 ### Example: Viewing the MRO
 
-```python
+# ```python
 class A:
     def method(self):
         print("Method in A")
@@ -243,41 +243,41 @@ print(D.mro())  # or print(D.__mro__)
 # Now, let's call the method on an instance of D
 d = D()
 d.method()
-```
+# ```
 
 #### Output:
 
-```python
-[<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>]
-Method in B
-```
+# ```python
+# [<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>]
+# Method in B
+# ```
 
-* The MRO shows that Python will search the method in the following order:
+# * The MRO shows that Python will search the method in the following order:
 
-  1. `D`
-  2. `B`
-  3. `C`
-  4. `A`
-  5. `object` (this is the base class of all Python classes)
+#   1. `D`
+#   2. `B`
+#   3. `C`
+#   4. `A`
+#   5. `object` (this is the base class of all Python classes)
 
-* When `d.method()` is called, Python searches for the `method()` in `D`, then `B`, and it finds it in `B`. So, **`Method in B`** is printed.
+# * When `d.method()` is called, Python searches for the `method()` in `D`, then `B`, and it finds it in `B`. So, **`Method in B`** is printed.
 
-### How Python Resolves the Diamond Problem: MRO and C3 Linearization
+# ### How Python Resolves the Diamond Problem: MRO and C3 Linearization
 
-Python's **C3 Linearization** ensures that:
+# Python's **C3 Linearization** ensures that:
 
-* The **left-to-right inheritance** order is followed.
-* The **deepest classes** are searched first (i.e., classes that are inherited directly before the parent classes).
-* The **same class is not visited twice** during the resolution process.
+# * The **left-to-right inheritance** order is followed.
+# * The **deepest classes** are searched first (i.e., classes that are inherited directly before the parent classes).
+# * The **same class is not visited twice** during the resolution process.
 
-### Why Python’s MRO Solves the Diamond Problem
+# ### Why Python’s MRO Solves the Diamond Problem
 
-* **No ambiguity**: Because Python’s MRO ensures a consistent and unambiguous order in which classes are checked, it solves the Diamond Problem.
-* **Customizable**: You can control the inheritance order and method resolution path by adjusting the order of inheritance in the class definition.
+# * **No ambiguity**: Because Python’s MRO ensures a consistent and unambiguous order in which classes are checked, it solves the Diamond Problem.
+# * **Customizable**: You can control the inheritance order and method resolution path by adjusting the order of inheritance in the class definition.
 
-### Conclusion
+# ### Conclusion
 
-* The **Diamond Problem** arises in **multiple inheritance** when a class inherits from multiple classes that share a common ancestor, leading to ambiguity about which method to call.
-* Python resolves this problem using **C3 Linearization** and the **Method Resolution Order (MRO)**, which defines a consistent order in which classes are searched for a method.
-* The MRO can be checked using `ClassName.mro()` or `ClassName.__mro__`.
-* By following this method, Python avoids ambiguity and ensures that the **leftmost path** in the inheritance chain is given precedence.
+# * The **Diamond Problem** arises in **multiple inheritance** when a class inherits from multiple classes that share a common ancestor, leading to ambiguity about which method to call.
+# * Python resolves this problem using **C3 Linearization** and the **Method Resolution Order (MRO)**, which defines a consistent order in which classes are searched for a method.
+# * The MRO can be checked using `ClassName.mro()` or `ClassName.__mro__`.
+# * By following this method, Python avoids ambiguity and ensures that the **leftmost path** in the inheritance chain is given precedence.
