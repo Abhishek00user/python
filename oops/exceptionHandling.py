@@ -22,9 +22,9 @@ finally:  #always runs, even if an error occurs
     print("executing finally whether exception occurs or not")
 
 # raising custom error
-# def check_age(age):
-#     if age < 18:
-#         raise ValueError("Age must be at least 18")
-#     return "Valid age"
+def check_age(age):
+    if age < 18:
+        raise ValueError("Age must be at least 18")
+    return "Valid age"
 
-# check_age(17)
+check_age(17)
