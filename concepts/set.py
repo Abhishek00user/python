@@ -1,11 +1,20 @@
+# set in mutable but the items must be immutable or hashable in the set as set uses hashing for faster lookups
+# hashing used because set is unordered, it doesn't use indexing
+# once set is created , we cannot change the content of existing item, but we can add new items or remove existing items
+
+set1 ={1,2,3}
+# set[0] = 1 
+set1.add(4)
+set1.remove(2)
+
+
 thisset = {"apple", "banana", "cherry"}
 thisset.add("orange") #add one element at a time
 print(thisset)
 
-thisset = set(("apple", "banana", "cherry")) # note the double round-brackets
+thisset = set(("apple", "banana", "cherry")) # note the double round-brackets , here we are converting tuple into a set
 print(thisset)
 
-thisset = {"apple", "banana", "cherry"}
 tropical = {"pineapple", "mango", "papaya"}
 thisset.update(tropical) #use update for add multiple items from another set into the current set
 # So after the update you have one set of strings — you do not have {"apple", "banana", "cherry", {"pineapple", "mango", "papaya"}} (a set containing another set).
@@ -26,6 +35,7 @@ set3 = set1.union(set2)
 # set3 = set1 | set2  this can also be used
 print(set3)
 
+# union returns a new set
 set1 = {"a", "b", "c"}
 set2 = {1, 2, 3}
 set3 = {"John", "Elena"}
@@ -33,11 +43,13 @@ set4 = {"apple", "bananas", "cherry"}
 myset = set1.union(set2, set3, set4)  #or use  myset = set1 | set2 | set3 |set4
 print(myset)
 
+# update modifies the original set
 set1 = {"a", "b" , "c"}
 set2 = {1, 2, 3}
-set1.update(set2) #The update() changes the original set, and does not return a new set.
+set1.update(set2)       # does not return a new set.
 print(set1)
 
+# intersection returns new set
 set1 = {"apple", "banana", "cherry"}
 set2 = {"google", "microsoft", "apple"}
 # set3 = set1 & set2  we can also use this 
@@ -51,7 +63,7 @@ print(set3)  # {False, 1, 'apple'} as false is equivalent to 0
 
 set1 = {"apple", "banana", "cherry"}
 set2 = {"google", "microsoft", "apple"}
-set3 = set1.difference(set2)
+set3 = set1.difference(set2)    # returns item from first set which are not present in second set
 # set3 = set1 - set2
 print(set3)     #{'banana', 'cherry'}
 
@@ -63,7 +75,7 @@ print(set1)
 set1 = {"apple", "banana", "cherry"}
 set2 = {"google", "microsoft", "apple"}
 set3 = set1.symmetric_difference(set2)
-# set3 = set1 ^ set2
+# set3 = set1 ^ set2  common elements removed
 print(set3)     #{'cherry', 'microsoft', 'banana', 'google'}  apple not included as it is present in both set
 
 set1 = {"apple", "banana", "cherry"}
@@ -73,11 +85,11 @@ print(set1)
 
 cities = {"Tokyo", "Madrid", "Berlin", "Delhi"}
 cities2 = {"Tokyo", "Seoul", "Kabul", "Madrid"}
-print(cities.isdisjoint(cities2))  #return false even if one of the item is common
+print(cities.isdisjoint(cities2))  # if even one common item found, then false returned
 
 cities = {"Tokyo", "Madrid", "Berlin", "Delhi"}
 cities2 = {"Seoul", "Kabul"}
-print(cities.issuperset(cities2))
+print(cities.issuperset(cities2)) #checks if all items of a set are present in original set
 
 cities = {"Tokyo", "Madrid", "Berlin", "Delhi"}
 cities2 = {"Delhi", "Madrid"}
@@ -85,4 +97,4 @@ print(cities.issuperset(cities2))
 
 cities = {"Tokyo", "Madrid", "Berlin", "Delhi"}
 cities2 = {"Delhi", "Madrid"}
-print(cities2.issubset(cities))
+print(cities2.issubset(cities)) #checks if all items of orginal set present in a set

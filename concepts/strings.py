@@ -1,5 +1,6 @@
 # Immutable = “once an object is created, its contents cannot be changed in place.”
 # Any operation that looks like it “modifies” a string actually creates a new string object and leaves the old one untouched.
+# String object is immutable, but the variable s or str(whatever) is reassignable
 
 s = "hello"
 print(id(s))             # memory id of 'hello'
@@ -33,11 +34,14 @@ name="harry"
 print(name[:3])
 print(name[:-3])
 print(name[0:])
-print(name[-2:])
+print(name[-2:])        # negative indexing starts from -1 and from the end towards the starting of the string
 
+name = "pythonp"
+print(name[0:6:2])  # output is pto (stopping index(6) is exclusive)
 # methods
 s=" apna college "  #remove spaces before and after string
-print(str.strip(s))
+print(str.strip(s))  # this doesn't modifies s
+print(s)
 
 str = "Hello !!!"
 print(str.rstrip("!"))
@@ -56,7 +60,7 @@ print(str3)
 
 # to avoid this 
 str="i am studying"
-str=str.capitalize()
+str=str.capitalize()  # that old value(i am studying) remains same , now str is pointing to new value which contains capitalized output 
 print(str)
 
 # str[0]='B'  not possible because string is immutable
@@ -71,3 +75,5 @@ name='ronn'
 print(letter.format(name,country))
 
 print(f"Hey my name is {name} and i am from {country}")
+price = 2.3549898 
+print(f"the cost is {price:.2f}") # rounding off to 2 places

@@ -1,5 +1,5 @@
-# Inheritance is a mechanism where a class acquires the properties and behaviors of another class, enabling code reuse and hierarchical relationships.
-
+# Inheritance is a mechanism where a class acquires the properties and behaviors of another class, enabling code reuse and 
+# hierarchical relationships.
 class Vehicle:
     def move(self):
         print("Vehicle is moving")
@@ -14,7 +14,8 @@ c.drive()
 
 
 
-# super use - The super() function in Python is used to call methods from a parent class (also called the superclass) from within a child class (or subclass)
+# super use - The super() function in Python is used to call methods from a parent class (also called the superclass) from within 
+# a child class (or subclass)
 class Animal:
     def sound(self):
         print("Animal sound")
@@ -38,11 +39,13 @@ class Parent:
 
 class Child(Parent):
     def __init__(self):
-        super().__init__()  #calling init method of the parent class .This is crucial because it ensures that the Parent class is properly initialized before the Child class does its own initialization. if not used then parent initialization skipped
+        super().__init__()  #calling init method of the parent class .This is crucial because it ensures that the Parent class is 
+        # properly initialized before the Child class does its own initialization. if not used then parent initialization skipped
         print("Child constructor")
 
 c = Child()  # parent called first and then child
-# if the parent class needs to perform some essential setup (like initializing instance variables) that the child class object would relies on , then it is important to use super 
+# if the parent class needs to perform some essential setup (like initializing instance variables) that the child class object
+# would relies on , then it is important to use super 
 
 class Person:
     def __init__(self, name, age):
@@ -81,7 +84,7 @@ c = Child()
 c.skills()  # In multiple inheritance, Python uses MRO (Method Resolution Order) and takes first parent (Mother) , so here cooking will be done
 
 
-# code for understanding the MRO order
+# code for understanding the MRO order and it is also the solution of the diamond problem (uses super + MRO)
 class A:
     def show(self):
         print("A")
@@ -178,31 +181,6 @@ d = D()
 d.show() # output - D B A C A
 # Since both B and C call A directly, and D calls both B and C, the method in A is executed twice, creating ambiguity and redundancy.
 
-# Explain the Solution (Using super + MRO)
-class A:
-    def show(self):
-        print("A")
-
-class B(A):
-    def show(self):
-        print("B")
-        super().show()
-
-class C(A):
-    def show(self):
-        print("C")
-        super().show()
-
-class D(B, C):
-    def show(self):
-        print("D")
-        super().show()
-
-d = D()
-d.show() # D B C A
-# Python solves the diamond problem using C3 Linearization (MRO - Method Resolution Order).
-# When we use super(), Python ensures that each class method is executed only once and follows a specific order:D → B → C → A
-
 
 # ### How Python Resolves the Diamond Problem
 
@@ -259,16 +237,6 @@ d.method()
 #   3. `C`
 #   4. `A`
 #   5. `object` (this is the base class of all Python classes)
-
-# * When `d.method()` is called, Python searches for the `method()` in `D`, then `B`, and it finds it in `B`. So, **`Method in B`** is printed.
-
-# ### How Python Resolves the Diamond Problem: MRO and C3 Linearization
-
-# Python's **C3 Linearization** ensures that:
-
-# * The **left-to-right inheritance** order is followed.
-# * The **deepest classes** are searched first (i.e., classes that are inherited directly before the parent classes).
-# * The **same class is not visited twice** during the resolution process.
 
 # ### Why Python’s MRO Solves the Diamond Problem
 

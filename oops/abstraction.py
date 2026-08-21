@@ -4,7 +4,8 @@ from abc import ABC, abstractmethod
 
 from abc import ABC, abstractmethod
 
-# Vehicle is an abstract base class that inherits from ABC (Abstract Base Class). This marks the Vehicle class as an abstract class, meaning it is intended to be a blueprint for other classes and cannot be instantiated directly.
+# Vehicle is an abstract base class that inherits from ABC (Abstract Base Class). This marks the Vehicle class as an abstract 
+# class, meaning it is intended to be a blueprint for other classes and cannot be instantiated directly.
 # It cannot be used to create objects unless its abstract methods are implemented by a subclass.
 
 class Vehicle(ABC):  #this abstract class can contain both concrete and abstract method
@@ -27,9 +28,9 @@ b = Bike()
 c.start()
 b.start()   # polymorphism used here because even though both Car and Bike implement the same method start, each one behaves differently according to its specific implementation.
 
-# The Car and Bike classes are concrete subclasses of Vehicle. They inherit from Vehicle and provide specific implementations for the start method.
-# This is where abstraction is applied: the Vehicle class provides the common interface (start), but each subclass provides its own implementation for how that start
-# functionality works.
+# The Car and Bike classes are concrete subclasses of Vehicle. They inherit from Vehicle and provide specific implementations for 
+# the start method.This is where abstraction is applied: the Vehicle class provides the common interface (start), but each subclass
+#  provides its own implementation for how that start functionality works.
 
 
 

@@ -29,8 +29,8 @@ print(s._marks)    # protected → accessible but conventionally “don’t use 
 # print(s.__id)    # private → will raise AttributeError
 print(s._student__id)  # private -> can be accesed using name mangling
 
-Even though we can technically access the private attribute using name mangling, this is generally discouraged because it breaks the encapsulation. The idea is to 
-restrict direct access and enforce controlled access via methods.
+# Even though we can technically access the private attribute using name mangling, this is generally discouraged because it breaks the encapsulation. The idea is to 
+# restrict direct access and enforce controlled access via methods.
 
 
 # getter setter are used for validating the data and it  allows you to control access to the internal data.

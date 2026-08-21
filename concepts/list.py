@@ -1,5 +1,5 @@
 list=[2,1,3]
-list.append(4)  #these functions doesn't return anything
+list.append(4)  #these functions doesn't return anything , since they are mutable they get modified in place
 print(list)
 
 list.sort()
@@ -10,7 +10,7 @@ print(list)
 
 #sorting also applies on words 
 
-list.insert(1,10)
+list.insert(1,10) # insert value 10 at index 1
 print(list)
 
 list.reverse()
@@ -52,3 +52,10 @@ list2 = [1, 2, 3]
 list3 = list1 + list2
 print(list3)
 
+list4 = [1,2,4,5]
+del list4[2]  # delete index 2 element
+print(list4)
+
+list5 = [1,2,3]
+list5.clear()
+print(list5)

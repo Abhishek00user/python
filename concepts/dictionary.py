@@ -1,3 +1,4 @@
+# ordered , Mutable , duplicates not allowed
 d = {
     "name" : "Apna College" ,
     "subjects": ["python","javascript"] ,
@@ -12,7 +13,6 @@ thisdict = dict(name = "John", age = 36, country = "Norway")
 print(thisdict)
 
 null_dict={}  # null dictionary
-# print(dict["subjects"]) 
 d["name"]="nothing"  #modified or mutated by overwriting
 d["surname"]="Raj"  #new key valur pair added
 print(d)

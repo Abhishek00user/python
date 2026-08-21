@@ -1,4 +1,5 @@
-# args is used when we don't know how many arguments will be passed to a function. It is of type tuple and is used to pass var no of arguments
+# args is used when we don't know how many arguments will be passed to a function. It is of type tuple and is used to pass
+#  var no of arguments
 def add(*args):
     total = 0
 

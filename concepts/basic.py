@@ -39,7 +39,7 @@ print(a is b)   # Identity check
 import copy
 
 lst1 = [[1, 2], [3, 4]]
-lst2 = copy.copy(lst1)
+lst2 = copy.copy(lst1)      # due to shallow copying , lst2 also starts pointing to memory where lst1 is pointing, a change in lst1 will lead to change in lst2 also
 lst3 = copy.deepcopy(lst1)
 
 lst1[0][0] = 99

@@ -1,8 +1,9 @@
 animals = ("cat", "dog", "bat", "mouse", "pig", "horse", "donkey", "goat", "cow")
-print(animals[::2])     # using positive indexes
-print(animals[-8:-1:2]) # using negative in dexes or use [1:9:2]
+print(animals[::2])     # ('cat', 'bat', 'pig', 'donkey', 'cow')
+print(animals[-8:-1:2]) # -ve idx starts from -1 and from end side => ('dog', 'mouse', 'horse', 'goat')
 
-# Tuples are immutable, hence if you want to add, remove or change tuple items, then first you must convert the tuple to a list. Then perform operations on that list and convert it back to a tuple.
+# Tuples are immutable, hence if you want to add, remove or change tuple items, then first you must convert the tuple to a list. 
+# Then perform operations on that list and convert it back to a tuple.
 countries = ("Spain", "Italy", "India", "England", "Germany")
 temp = list(countries)
 temp.append("Russia")       # add item 
@@ -10,6 +11,7 @@ temp.pop(3)                 # remove item
 temp[2] = "Finland"         # change item
 countries = tuple(temp)
 print(countries)
+
 
 thistuple = ("apple", "banana", "cherry")
 y = ("orange",)
@@ -52,3 +54,5 @@ print(red)
 fruits = ("apple", "banana", "cherry")
 mytuple = fruits * 2  #If you want to multiply the content of a tuple
 print(mytuple)  #('apple', 'banana', 'cherry', 'apple', 'banana', 'cherry')
+print(mytuple.count("apple"))
+print(mytuple.index("apple"))
